@@ -14,8 +14,8 @@ export function groupPerMaliciousTraffic(pcapPackets: Packet[], entranceUrlList:
     const responsePackets = requestPackets.reduce<Packet[]>((responses, requestPacket) => {
       const responseFrameNumber = requestPacket._source?.layers?.http?.['http.response_in'];
       const responsePacket = pcapPackets.find((packet) => {
-        const httpResponseIn = packet._source?.layers?.http?.['http.response_in'];
-        return httpResponseIn && httpResponseIn === responseFrameNumber;
+        const frameNumber = packet._source?.layers?.frame?.['frame.number'];
+        return frameNumber && frameNumber === responseFrameNumber;
       });
       if (responsePacket) {
         return [...responses, responsePacket];
@@ -24,9 +24,11 @@ export function groupPerMaliciousTraffic(pcapPackets: Packet[], entranceUrlList:
       }
     }, []);
     groupedPackets.push({
+      requestsCount: requestPackets.length,
+      responseCount: responsePackets.length,
       entranceUrl,
-      requests: extractAttributes(requestPackets),
-      responses: extractAttributes(responsePackets),
+      requests: requestPackets,
+      responses: responsePackets,
     });
   }
 
