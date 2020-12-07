@@ -3,12 +3,13 @@
 ## 実行する前に必要な手順
 
 - node.js を PC にインストールする
+  - v12系統をインストールしてください
 
   - https://qiita.com/echolimitless/items/83f8658cf855de04b9ce
 
 - node_modules をインストール
   - `dbd-pcap-analyzer` フォルダをコマンドプロンプトで開く
-  - `$ npm install` とコマンドプロンプトに入力して実行する
+  - `npm install` とコマンドプロンプトに入力して実行する
 
 - pcap ファイルを json で export したファイルを用意して data フォルダに入れる
 
