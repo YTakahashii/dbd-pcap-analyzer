@@ -7,6 +7,7 @@ const entranceSiteUrlList = entranceSiteUrlTxt.split('\n');
 // 自作の集計関数の読み込み
 import { groupPerMaliciousTraffic } from './groupPerMaliciousTraffic';
 import { aggregateWebHierarchy } from './aggregates/aggregateWebHierarchy';
+import { aggregateDownloadFileType } from './aggregates/aggregateDownloadFileType';
 
 // 悪性通信1セット毎にリクエストとレスポンスでグループ化
 const groupedPackets = groupPerMaliciousTraffic(pcapPackets, entranceSiteUrlList);
@@ -20,11 +21,14 @@ fs.writeFile('results/grouped_packets.json', JSON.stringify(groupedPackets, null
 const featureValuesByMaliciousTraffic = [];
 
 for (const groupedPacketPair of groupedPackets) {
-  // WEB階層（ここでは，直列にリダイレクトした回数）
-  const webHierarchy = aggregateWebHierarchy(groupedPacketPair);
+  const webHierarchy = aggregateWebHierarchy(groupedPacketPair); // WEB階層（ここでは，直列にリダイレクトした回数）
+  const downloadFileType = aggregateDownloadFileType(groupedPacketPair);
+  // const someFeature = aggregateSomeFeature(groupedPacketPair)
+
   featureValuesByMaliciousTraffic.push({
     entranceUrl: groupedPacketPair.entranceUrl,
     webHierarchy,
+    downloadFileType,
   });
 }
 
