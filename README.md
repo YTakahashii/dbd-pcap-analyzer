@@ -45,7 +45,8 @@
 [
   {
     // 悪性通信1フロー分のパケットデータ（1つ目の悪性通信フロー）
-    // requests[i] と responses[i] は対になっている． 例えばリクエストパケット1番目の requests[0] のレスポンスは responses[0]．したがって各悪性通信フローにおけるrequests.lengthとresponses.lengthは等しい．
+    // requests[i] と responses[i] は対になっている． 例えばリクエストパケット1番目の requests[0] のレスポンスは responses[0]である．
+    // したがって各悪性通信フローにおけるrequests.lengthとresponses.lengthは等しい．
     requests: [ // 1つ目の悪性通信フローのリクエストパケット
       {
         // パケットデータ
